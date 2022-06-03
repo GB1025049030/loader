@@ -1,1 +1,1 @@
-void toast();
+int getToastID();

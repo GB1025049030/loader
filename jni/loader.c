@@ -1,22 +1,30 @@
 #include <stdio.h>
+#include <unistd.h>
 
-// #include "util.h"
+#include "util.h"
 
+//*/
 const char interp[] __attribute__((section(".interp"))) =
     "/data/data/io.twoyi/rootfs/system/bin/linker64";
+/*/
+const char interp[] __attribute__((section(".interp"))) =
+    "/system/bin/linker64";
+//*/
 
-int main() {
-    // printf("LOADER : Start\n");
-    int num = 0;
+int main(void) {
+    int num = getToastID();
     while (1) {
-        // printf("LOADER : Working!\n");
         if (num % 2 == 0) {
             num++;
         } else {
             num--;
         }
-        //  toast();
     }
-    // printf("LOADER : End\n");
     return 0;
+}
+
+void _start(void) {
+    int ret;
+    ret = main();
+    _exit(ret);
 }
