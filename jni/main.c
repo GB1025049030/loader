@@ -1,10 +1,28 @@
 #include "elf_loader.h"
 #include "z_utils.h"
 
-int main(int argc, char *argv[]) {
+int main(int argc, char* argv[]) {
     init_exec_elf(argv);
-
+    /*/
     if (argc < 2) z_errx(1, "no input file");
-
     exec_elf(argv[1], argc - 1, argv + 1);
+    /*/
+    if (argc >= 1) {
+        // exec_elf(argv[1], argc - 1, argv + 1);
+        //} else if (argc == 1) {
+        for (int i = 0; i < argc; i++) {
+            int len = is_need_translate(argv[i]);
+            if (len) {
+                char* path = z_alloca(sizeof(char) * len);
+                strcpy(path, APP_ROOTFS_PATH);
+                strcat(path, argv[i]);
+                argv[i] = path;
+            }
+        }
+        exec_elf(argv[0], argc, argv);
+    } else {
+        z_errx(1, "no input file");
+    }
+    //*/
+    return 0;
 }

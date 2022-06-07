@@ -50,7 +50,7 @@ endif
 
 ASFLAGS = $(CFLAGS)
 
-SRC_FILES := loader.c z_err.c z_printf.c z_syscalls.c z_utils.c foreign_dlopen.c
+SRC_FILES := loader.c z_err.c z_printf.c z_syscalls.c z_utils.c foreign_dlopen.c path_utils.c
 SRC_FILES += $(patsubst $(LOCAL_PATH)/%.S,%.S, $(wildcard $(LOCAL_PATH)/$(ARCH)/*.S))
 
 ifeq "$(SMALL)" "1"

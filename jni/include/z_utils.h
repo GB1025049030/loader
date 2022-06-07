@@ -26,6 +26,8 @@ void z_fdprintf(int fd, const char *fmt, ...)
 void z_errx(int eval, const char *fmt, ...)
     __attribute__((format(printf, 2, 3)));
 
+unsigned int compare_paths(const char *path1, const char *path2);
+
 #ifdef Z_SMALL
 #define z_errx(eval, fmt, ...) z_exit(eval)
 #define z_printf(fmt, ...) \

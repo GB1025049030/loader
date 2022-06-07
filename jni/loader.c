@@ -115,6 +115,10 @@ void init_exec_elf(char *argv[]) {
 }
 
 void exec_elf(const char *file, int argc, char *argv[]) {
+    z_printf("exec_elf: target = %s\n", file);
+    for (int i = 0; i < argc; i++) {
+        z_printf("exec_elf: param(%d) = %s\n", i, argv[i]);
+    }
     Elf_Ehdr ehdrs[2], *ehdr = ehdrs;
     Elf_Phdr *phdr, *iter;
     Elf_auxv_t *av;
@@ -161,7 +165,7 @@ void exec_elf(const char *file, int argc, char *argv[]) {
 
     for (i = 0;; i++, ehdr++) {
         /* Open file, read and than check ELF header.*/
-        z_printf("freeme: current file = %s", file);
+        z_printf("freeme: current file(%s)\n", file);
         if ((fd = z_open(file, O_RDONLY)) < 0) z_errx(1, "can't open %s", file);
         if (z_read(fd, ehdr, sizeof(*ehdr)) != sizeof(*ehdr))
             z_errx(1, "can't read ELF header %s", file);
@@ -192,6 +196,11 @@ void exec_elf(const char *file, int argc, char *argv[]) {
                 z_errx(1, "can't read interp segment");
             if (elf_interp[iter->p_filesz - 1] != '\0')
                 z_errx(1, "bogus interp path");
+            //*/
+            if (is_need_translate_interp(elf_interp)) {
+                translate(&elf_interp);
+            }
+            //*/
             file = elf_interp;
         }
         /* Looks like the ELF is static -- leave the loop. */

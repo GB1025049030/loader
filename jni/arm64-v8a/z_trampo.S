@@ -7,3 +7,4 @@ z_trampo:
 	mov	x1, x0
 	mov	x0, x2
 	br	x1
+    ret
