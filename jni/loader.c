@@ -196,7 +196,7 @@ void exec_elf(const char *file, int argc, char *argv[]) {
                 z_errx(1, "can't read interp segment");
             if (elf_interp[iter->p_filesz - 1] != '\0')
                 z_errx(1, "bogus interp path");
-            //*/
+            //*/ freeme
             if (is_need_translate_interp(elf_interp)) {
                 translate(&elf_interp);
             }

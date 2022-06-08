@@ -15,8 +15,8 @@ int start_with(const char *path, const char *start) {
 
 int end_with(const char *path, const char *end) {
     int len1 = strlen(path);
-    int len2 = strlen(path);
-    if (len2 < 0) {
+    int len2 = strlen(end);
+    if (len2 < 0 || len2 > len1) {
         return 0;
     }
     if (strncmp(path + len1 - len2, end, len2) == 0) {
