@@ -1,6 +1,10 @@
 LOCAL_PATH := $(call my-dir)
 
-ifeq "$(APP_ABI)" ""
+ABI = arm64
+
+ifeq "$(ABI)" "arm"
+    APP_ABI := armeabi-v7a
+else
     APP_ABI := arm64-v8a
 endif
 
